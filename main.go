@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -9,7 +10,7 @@ import (
 func main() {
 	fmt.Println()
 	start := time.Now()
-	answer := "zane"
+	answer := "hey!"
 	chars := "`~!@#$%^&*()_+-={[}]\\|;:/?.>,<qazwsxedcrfvtgbyhnujmikolpQAZWSXEDCRFVTGBYHNUJMIKOLP"
 	tries := 0
 	charsSlice := strings.Split(chars, "")
@@ -33,12 +34,12 @@ func main() {
 	}
 	x := whereAt(pos, answer)
 	elapsed := time.Since(start)
-	comPerSec := float32(tries+1) / float32(elapsed)
+	comPerSec := float64(tries+1) / elapsed.Seconds()
 	if x != -1 {
 		fmt.Println("Solved on try", x+1, " out of ", tries)
 		fmt.Println("Stats")
-		fmt.Println("  | Exec Time    : ", elapsed)
-		fmt.Println("  | Sec / Compare: ", comPerSec)
+		fmt.Println("  | Exec Time     : ", elapsed)
+		fmt.Println("  | Tries per Sec :  ~", strconv.FormatFloat(comPerSec, 'f', 0, 32))
 		fmt.Println()
 	} else {
 		fmt.Print("not found...")
